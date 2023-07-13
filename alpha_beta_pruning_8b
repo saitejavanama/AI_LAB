@@ -1,0 +1,28 @@
+import math
+min1,max1=-1000,1000
+def minimax(depth,nodeindex,turn,scores,alpha,beta):
+    if depth==d:
+        return scores[nodeindex]
+    if turn:
+        best=min1
+        for i in range(0,2):
+            val=minimax(depth+1,nodeindex*2 +i,False,scores,alpha,beta)
+            best=max(val,best)
+            alpha=max(alpha,best)
+            if beta<=alpha:
+                break
+        return best
+    else:
+        best=max1
+        for i in range(0,2):
+            val=minimax(depth+1,nodeindex*2 +i,True,scores,alpha,beta)
+            best=min(val,best)
+            beta=min(beta,best)
+            if beta<=alpha:
+                break
+        return best
+
+print('values for each node: ')
+scores=eval(input())
+d=math.log(len(scores),2)
+print('optimal value: ',minimax(0,0,True,scores,min1,max1))
