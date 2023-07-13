@@ -1,0 +1,14 @@
+import math
+def minimax(currdepth,nodeindex,maxturn,scores,targetdepth):
+    if currdepth==targetdepth:
+        return scores[nodeindex]
+    if maxturn:
+        return max(minimax(currdepth+1,nodeindex*2,False,scores,targetdepth),minimax(currdepth+1,nodeindex*2 +1,False,scores,targetdepth))
+    else:
+        return min(minimax(currdepth+1,nodeindex*2,True,scores,targetdepth),minimax(currdepth+1,nodeindex*2 +1,True,scores,targetdepth))
+n=int(input('no of nodes: '))
+scores=[]
+for i in range(n):
+    scores.append(int(input(f"node {i} ")))
+maxdepth=int(math.log(len(scores),2))
+print(minimax(0,0,True,scores,maxdepth))
