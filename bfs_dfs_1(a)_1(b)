@@ -1,0 +1,35 @@
+def dfs(r,g,d):
+    o=[r]
+    c=[]
+    while g not in c:
+        x=o.pop(0)
+        if x in d.keys():
+            o=d[x]+o
+        if x not in c:
+            c.insert(0,x)
+        print(o,c)
+    print("path :",end="\t")
+    for i in c[::-1]:
+        print(i,end=" ")
+d={'A':['B', 'C', 'D'], 'B':['E', 'F'], 'C':['F', 'G'], 'E':['H', 'I'], 'F':['J']}
+dfs('A', 'G',d)
+
+
+
+
+def bfs(r,g,d):
+    o=[r]
+    c=[]
+    while g not in c:
+        x=o.pop(0)
+        if x in d.keys():
+            for i in d[x]:
+                if i not in o:
+                    o.append(i)
+        c.append(x)
+        print(o,c)
+    print("path :",end="\t")
+    for i in c:
+        print(i,end=" ")
+d={'A':['B', 'C', 'D'], 'B':['E', 'F'], 'C':['F', 'G'], 'E':['H', 'I'], 'F':['J']}
+bfs('A', 'G',d)
