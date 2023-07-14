@@ -1,0 +1,53 @@
+m,n=map(int,input().split())
+res=int(input())
+root,dest=[0,0],[res,0]
+def waterjug_bfs(r,d,m,n):
+    visited,o=[],[r]
+    layer=[]
+    graph={}
+    while d not in o:
+        layer=[]
+        for i in o:
+            pos=[]
+            if i[0]==0:
+                pos.append([m,i[1]])
+            if i[1]==0:
+                pos.append([i[0],n])
+            if i[0]==m:
+                pos.append([0,i[1]])
+            if i[1]==n:
+                pos.append([i[0],0])
+            if i[1]>0 and m-i[0]>0:
+                a=m-i[0]
+                if a>=i[1]:
+                    pos.append([i[0]+i[1],0])
+                else:
+                    pos.append([m,i[1]-a])
+            if i[0]>0 and n-i[1]>0:
+                a=n-i[1]
+                if a>=i[0]:
+                    pos.append([0,i[0]+i[1]])
+                else:
+                    pos.append([i[0]-a,n])
+            graph[tuple(i)]=pos
+            layer=pos
+        for j in layer:
+            if j in visited:
+                layer.remove(j)
+        visited+=o
+        o=layer
+    return graph
+g=waterjug_bfs(root,dest,m,n)
+print(g)
+
+def path(g,r,d):
+    x=d
+    ans=[tuple(d)]
+    while x!=r:
+        for i in g.keys():
+            if x in g[i]:
+                ans.insert(0,i)
+                break
+        x=list(ans[0])
+    return ans
+print(path(g,root,dest))
