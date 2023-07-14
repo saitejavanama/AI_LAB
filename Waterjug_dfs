@@ -1,0 +1,40 @@
+j1=int(input())
+j2=int(input())
+goal=[2,0]
+root=[0,0]
+o=[root]
+c=[]
+path=[]
+def wdfs(root,goal,j1,j2):
+    while o:
+        s=o.pop()
+        path.append(s)
+        if s[0]==goal[0] and s[1]==goal[1]:
+            print('path:')
+            return path
+        c.append(s)
+        if s[0]<j1 and [j1,s[1]] not in c:
+            o.append([j1,s[1]])
+            c.append([j1,s[1]])
+        if s[1]<j2 and [s[0],j2] not in c:
+            o.append([s[0],j2])
+            c.append([s[0],j2])
+        if s[0]>0 and [0,s[1]] not in c:
+            c.append([0,s[1]])
+            o.append([0,s[1]])
+        if s[1]>0 and [s[0],0] not in c:
+            c.append([s[0],0])
+            o.append([s[0],0])
+        if s[0]+s[1]<=j1 and s[1]>0 and  [s[0]+s[1],0] not in c:
+            c.append([s[0]+s[1],0])
+            o.append([s[0]+s[1],0])
+        if s[0]+s[1]<=j2 and s[0]>0 and [0,s[0]+s[1]] not in c:
+            c.append([0,s[0]+s[1]])
+            o.append([0,s[0]+s[1]])
+        if s[0]+s[1]>=j1 and s[1]>0 and [j1,s[1]-(j1-s[0])] not in c:
+            c.append([j1,s[1]-(j1-s[0])])
+            o.append([j1,s[1]-(j1-s[0])])
+        if s[0]+s[1]>=j2 and s[0]>0 and [s[0]-(j2-s[1]),j2] not in c:
+            c.append([s[0]-(j2-s[1]),j2])
+            o.append([s[0]-(j2-s[1]),j2])
+print(wdfs(root,goal,j1,j2))
