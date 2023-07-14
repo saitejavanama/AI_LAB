@@ -1,0 +1,30 @@
+#BFS
+room1,room2,vaccum_location=input('Enter states').split(' ')
+visited=[[room1,room2,vaccum_location]]
+def add(p,q,r):
+    global top
+    visited.append([p,q,r])
+    top=top+1
+front,top=0,0
+f=0
+while front<=top:
+    r1,r2,vc=visited[front]
+    if r1=='c' and r2=='c':
+        f=1
+        break
+    if vc=='l':
+        if r1=='d' and ['c',r2,vc] not in visited:
+            add('c',r2,vc)
+        if [r1,r2,'r'] not in visited:
+            add(r1,r2,'r')
+    else:
+        if r2=='d' and [r1,'c',vc] not in visited:
+            add(r1,'c',vc)
+        if [r1,r2,'l'] not in visited:
+            add(r1,r2,'l')
+    front=front+1
+if f==1:
+    print('BFS')
+    print(visited)
+else:
+    print('No Solution')
