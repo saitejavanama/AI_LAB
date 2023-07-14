@@ -1,0 +1,22 @@
+visited=[]
+def vaccum(room1,room2,vaccum_location):
+    visited.append([room1,room2,vaccum_location])
+    if room1=='c' and room2=='c':
+        return 1
+    if vaccum_location=='l':
+        if room1=='d' and ['c',room2,vaccum_location] not in visited :
+            return vaccum('c',room2,vaccum_location)
+        if [room1,room2,'right'] not in visited :
+            return vaccum(room1,room2,'r')
+    else:
+        if room2=='d' and [room1,'c',vaccum_location] not in visited: 
+            return vaccum(room1,'c',vaccum_location)
+        if [room1,room2,'l'] not in visited :
+            return vaccum(room1,room2,'l')
+    return 0
+room1,room2,vaccum_location=input('Enter states').split(' ')
+if vaccum(room1,room2,vaccum_location):
+    print('DFS')
+    print(visited)
+else:
+    print('No Solution')
