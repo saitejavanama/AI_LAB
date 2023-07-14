@@ -1,0 +1,31 @@
+l=[]
+def dsearch(s,g,d):
+    global l
+    l.append(s)
+    if s==g:
+        return True
+    if d<=0:
+        return False
+    for i in graph[s]:
+        if i not in l:
+            if dsearch(i,g,d-1):
+                return True
+    return False
+def dfid(s,g,m):
+    global l
+    for i in range(m):
+        l=[]
+        x=dsearch(s,g,i)
+        print(str(i),l)
+        if x:
+            print("Yes")
+            break
+n=int(input('enter no of nodes: '))
+for i in range(n):
+    a=input('parent node: ')
+    l=list(map(str,input('child: ').split()))
+    graph[a]=l
+s=input('start node:')
+g=input('goal node:')
+m=int(input('maxlevel:'))
+dfid(s,g,m)
