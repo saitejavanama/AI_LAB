@@ -1,0 +1,22 @@
+def AOstar(g,c):
+  k=list(c.keys())[::-1]
+  for x in k:
+    z=c[x]
+    p=list(z.keys())
+    l=[]
+    for y in p:
+      for i in range(len(z[y])):
+        z[y][i]=g[z[y][i]]+1
+      if y=='OR':
+        l.append(min(z[y]))
+      else:
+        print(z[y])
+        l.append(sum(z[y]))
+        z[y]=[sum(z[y])]
+      print(z)
+    print(l)
+    g[x]=min(l)
+g={'A':0,'B': 0,'C': 0,'D': 0,'E': 7,'F': 9,'G': 3,'H': 0,'I': 0,'J': 0}
+c={'A': {'OR': ['B'], 'AND': ['C', 'D']},'B': {'OR': ['E', 'F']},'C': {'OR': ['G'],'AND':['H','I']},'D': {'OR': ['J']},}
+AOstar(g,c)
+print(g)
