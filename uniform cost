@@ -1,0 +1,27 @@
+from queue import PriorityQueue
+def uniform(graph,start,end):
+    q=PriorityQueue()
+    visited=[]
+    count=1
+    q.put([0,start])
+    while(count):
+        val=q.get()
+        count-=1
+        if(val[1] not in visited):
+            visited.append(val[1])
+            if(val[1]==end):
+                print(*visited)
+                return val[0]
+            for i in graph[val[1]]:
+                count+=1
+                q.put([val[0]+i[0],i[1]])
+                
+graph={
+    's':[[2,'1'],[5,'3']],
+    '1':[[1,'g']],
+    '3':[[6,'g'],[5,'1'],[2,'4']],
+    '4':[[4,'2']],
+    '2':[[4,'1']],
+    'g':[]
+}
+print(uniform(graph,'s','g'))
